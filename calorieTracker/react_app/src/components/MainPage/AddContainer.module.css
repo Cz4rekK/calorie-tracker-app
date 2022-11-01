@@ -1,0 +1,15 @@
+.AddContainer {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #1f1f1f;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 3.2rem;
+  padding: 1.5rem;
+  background-color: #7f7f7f;
+  border-radius: 2rem;
+  margin-bottom: 1rem;
+}

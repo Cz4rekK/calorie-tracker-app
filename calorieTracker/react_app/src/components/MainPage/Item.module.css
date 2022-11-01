@@ -1,0 +1,45 @@
+.Container {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #1f1f1f;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 3.2rem;
+  padding: 1.5rem;
+  background-color: #7f7f7f;
+  border-radius: 2rem;
+  margin: 1rem 0rem 1rem 0rem;
+}
+
+.Button {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #1f1f1f;
+  background-color: #f4f4f4;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  padding: 0.6rem 1rem 0.4rem 1rem;
+  cursor: pointer;
+  margin-left: 1rem;
+}
+
+.Button:hover {
+  background-color: #e4e4e4;
+}
+
+.Button:active {
+  background-color: #d4d4d4;
+}
+
+.Input {
+  font: inherit;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #ccc;
+  background-color: #f4f4f4;
+  border-radius: 6px;
+  width: 5rem;
+  margin-left: 1rem;
+}

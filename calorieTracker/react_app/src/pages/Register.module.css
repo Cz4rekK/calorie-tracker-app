@@ -1,0 +1,31 @@
+.Form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.Label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.Input {
+  font: inherit;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #ccc;
+  background-color: #f4f4f4;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+.Button {
+  font: inherit;
+  padding: 0.4rem 2rem;
+  border: 1px solid #ccc;
+  background-color: #f4f4f4;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 1rem;
+}

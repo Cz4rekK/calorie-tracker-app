@@ -1,0 +1,10 @@
+.TopBarBox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: right;
+  width: 20%;
+  height: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
+}

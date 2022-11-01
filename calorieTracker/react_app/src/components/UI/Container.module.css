@@ -1,0 +1,12 @@
+.Container {
+  width: 100%;
+  max-width: 40rem;
+  margin: 3rem auto;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  background-color: white;
+  min-height: 10rem;
+  border: 5px solid #ccc;
+  border-radius: 10px;
+}
