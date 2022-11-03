@@ -4,15 +4,12 @@ import PlusButton from '../components/MainPage/PlusButton';
 import Container from '../components/UI/Container';
 import Item from '../components/MainPage/Item';
 import Summary from '../components/MainPage/Summary';
-import request from '../axios';
 
 import styles from './Home.module.css';
 import axiosInstance from '../axios';
-import { CloudFog } from 'phosphor-react';
 
 const Home = (props) => {
   const [meals, setMeals] = useState([]);
-  const [userFood, setUserFood] = useState([]);
   const [products, setProducts] = useState([]);
   const [goalKcal, setGoalCalories] = useState(0);
   const [goalProtein, setGoalProtein] = useState(0);
@@ -25,12 +22,11 @@ const Home = (props) => {
   const [carbsGoal, setCarbsGoal] = useState(0);
   const [fatGoal, setFatGoal] = useState(0);
   const [changeGoal, setChangeGoal] = useState(false);
-  const [productChoice, setProductChoice] = useState('');
   const [currentProducts, setCurrentProducts] = useState([]);
-  const [amount, setAmount] = useState(0);
-  const [amountValues, setAmountValues] = useState([]);
   const [addProdToMealDialog, setAddProdToMealDialog] = useState(false);
   const [mealId, setMealId] = useState('');
+  const [userProducts, setUserProducts] = useState([]);
+  const [userMeals, setUserMeals] = useState([]);
 
   // refresh meals when product added to meals
   useEffect(() => {
@@ -75,11 +71,41 @@ const Home = (props) => {
       .then((data) => setMeals(data));
   }, []);
 
+  // display user products from database
+  useEffect(() => {
+    const apiUrl = 'http://127.0.0.1:8000/api/productSumups';
+    fetch(apiUrl)
+      .then((response) => response.json())
+      .then((data) => setUserProducts(data));
+  }, []);
+
+  // update userproducts when product deleted
+  useEffect(
+    () => {
+      const apiUrl = 'http://127.0.0.1:8000/api/productSumups';
+      fetch(apiUrl)
+        .then((response) => response.json())
+        .then((data) => setUserProducts(data));
+    },
+    [addProduct],
+    [userProducts]
+  );
+
   const test = () => {
-    const apiUrl = 'http://127.0.0.1:8000/api/calorieGoal';
+    const apiUrl = 'http://127.0.0.1:8000/api/productSumups';
     fetch(apiUrl)
       .then((response) => response.json())
       .then((data) => console.log(data));
+  };
+
+  // delete userProduct from database
+  const deleteUserProduct = (product) => {
+    axiosInstance.delete(`/productSumups/${product.id}/`);
+    setUserProducts(userProducts.filter((item) => item.id !== product.id));
+    setGoalCalories(goalKcal - product.product.kcal);
+    setGoalProtein(goalProtein - product.product.protein);
+    setGoalCarbs(goalCarbs - product.product.carbs);
+    setGoalFat(goalFat - product.product.fat);
   };
 
   // calculate calories for a meal
@@ -208,12 +234,13 @@ const Home = (props) => {
     let protein = 0;
     let carbs = 0;
     let fat = 0;
-    userFood.forEach((product) => {
-      kcal += Number(product.kcal);
-      protein += Number(product.protein);
-      carbs += Number(product.carbs);
-      fat += Number(product.fat);
+    userProducts.forEach((product) => {
+      kcal += Number(product.product.kcal);
+      protein += Number(product.product.protein);
+      carbs += Number(product.product.carbs);
+      fat += Number(product.product.fat);
     });
+
     setGoalCalories(kcal);
     setGoalProtein(protein);
     setGoalCarbs(carbs);
@@ -278,8 +305,16 @@ const Home = (props) => {
       <button onClick={() => test()}>Calculate meal</button>
       {addProduct === false && addMeal === false && (
         <Container>
-          {userFood.map((product, index) => (
-            <Item onClick={() => deleteProductHandler(product.id)} key={index} title={product.name} kcal={product.kcal} protein={product.protein} carbs={product.carbs} fat={product.fat} />
+          {userProducts.map((product, index) => (
+            <Item
+              onClick={() => deleteUserProduct(product)}
+              key={index}
+              title={product.product.name}
+              kcal={product.product.kcal}
+              protein={product.product.protein}
+              carbs={product.product.carbs}
+              fat={product.product.fat}
+            />
           ))}
           <Summary
             totalKcal={goalKcal}
