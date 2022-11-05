@@ -1,5 +1,6 @@
 import pytest
 from rest_framework.test import APIClient
+from trackerApp.models import Product
 
 client = APIClient()
 
@@ -10,18 +11,8 @@ def test_get_meal_products():
     assert response.status_code == 301
     
 @pytest.mark.django_db
-def test_add_meal_products():
-    data = {
-    "meal": 1,
-    "product": {
-        "name": "test",
-        "kcal": 1,
-        "protein": 1,
-        "carbs": 1,
-        "fat": 1
-    },
-    "amount": 1
-}
-    response = client.post("/api/mealProducts/", data)
+def test_get_meal_products():
+    response = client.get("/api/mealProducts/1")
     
-    assert response.status_code == 201
+    assert response.status_code == 301
+    

@@ -20,4 +20,4 @@ def test_add_calorie_goal():
 def test_get_calorie_goal():
     response = client.get("/api/calorieGoal")
     
-    assert response.status_code == 200
+    assert response.status_code == 301
